@@ -1,33 +1,28 @@
 package hw03;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PhoneBook {
-    private Map<String, String> pb;
+    private Map<String, Set<String>> pb;
 
     PhoneBook() {
         this.pb = new HashMap<>();
     }
 
     public String add(String phone, String surname) {
-         pb.put(phone, surname);
+        //check if a subscriber exists
+        Set<String> pt
+                = pb.getOrDefault(surname,new HashSet<>());
+        pt.add(phone);
+        pb.put(surname,pt);
         return String.format(
                 "Subscriber '%s' with the phone number '%s' successfully added\n",
                 surname, phone);
     }
 
     //return list phones by family name
-    public List<String> get(String surname) {
-        List<String> al = new ArrayList<>();
-        pb.forEach((k,v) -> {
-            if(v.equals(surname)) {
-                al.add(k);
-            }
-        });
-        return  al;
+    public Set<String> get(String surname) {
+        return pb.get(surname);
     }
 
 }

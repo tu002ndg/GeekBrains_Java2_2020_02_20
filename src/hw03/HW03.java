@@ -58,8 +58,8 @@ public class HW03 {
 
     private static void searchInPhoneBook(PhoneBook PB, String surname) {
         System.out.printf("\nSearch subscriber '%s'",surname);
-        List<String> phones= PB.get(surname);
-        if (!phones.isEmpty()) {
+        Set<String> phones= PB.get(surname);
+        if (phones!=null) {
             System.out.println("\nThe subscriber has the following phone number(s): ");
             for (String phone: phones
                  ) {
