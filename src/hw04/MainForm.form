@@ -85,9 +85,11 @@
               <verticalTextPosition value="1"/>
             </properties>
           </component>
-          <component id="47f" class="javax.swing.JList" binding="lstMessages">
+          <component id="320bc" class="javax.swing.JTextArea" binding="txtMessageArea">
             <constraints border-constraint="Center"/>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
         </children>
       </grid>
