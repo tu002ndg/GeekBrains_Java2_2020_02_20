@@ -14,7 +14,7 @@ public class HW05 {
         timing(()->consecutiveExecution(arr1),"Consecutive execution");
 
         final float [] arr2=initArray(SIZE);
-        timing(()->ParallelExecution(arr2),"Parallel execution");
+        timing(()->parallelExecution(arr2),"Parallel execution");
     }
 
     private static void consecutiveExecution(float arr[]) {
@@ -22,7 +22,7 @@ public class HW05 {
     }
 
 
-    private static void ParallelExecution (float arr[])  {
+    private static void parallelExecution (float arr[])  {
         float [] arr1 = new float [HALF];
         float [] arr2 = new float [HALF];
 
