@@ -62,6 +62,15 @@ public class NetworkServer {
         }
     }
 
+    public synchronized void privateMessage(String message, String user)
+            throws IOException {
+        for (ClientHandler client: clients
+                ) {
+            if (client.getNickname().equals(user))
+                client.sendMessage(message);
+        }
+    }
+
     public synchronized void subscribe(ClientHandler clientHandler) {
         clients.add(clientHandler);
     }
@@ -69,4 +78,6 @@ public class NetworkServer {
     public synchronized void unsubscribe(ClientHandler clientHandler) {
         clients.remove(clientHandler);
     }
+
+
 }

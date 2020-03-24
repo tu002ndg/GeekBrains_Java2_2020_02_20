@@ -17,6 +17,10 @@ public class ClientHandler {
 
 
 
+    public String getNickname() {
+        return nickname;
+    }
+
     public ClientHandler(NetworkServer networkServer, Socket socket) {
         this.networkServer = networkServer;
         this.clientSocket = socket;
@@ -66,7 +70,13 @@ public class ClientHandler {
             if ("/end".equals(message)) {
                 return;
             }
-            networkServer.broadcastMessage(nickname+": "+message, this);
+            if (message.startsWith("/w")) {
+                String[] messageParts = message.split("\\s+", 3);
+                String user = messageParts[1].trim();
+                String msg = messageParts[2];
+                networkServer.privateMessage(nickname+": "+msg, user);
+            } else
+                networkServer.broadcastMessage(nickname+": "+message, this);
 
         }
     }
