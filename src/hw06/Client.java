@@ -36,7 +36,7 @@ public class Client {
 
     public Thread inputStream(DataInputStream in) {
         Thread thread = new Thread(() -> {
-            while (true) {
+            while (!Thread.currentThread().isInterrupted()) {
                 try {
                     String message = in.readUTF();
                     System.out.println("From server: " + message);
