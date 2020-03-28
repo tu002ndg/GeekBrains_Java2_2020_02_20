@@ -39,7 +39,7 @@
         </properties>
         <border type="etched"/>
         <children>
-          <component id="f0be1" class="javax.swing.JList">
+          <component id="f0be1" class="javax.swing.JList" binding="usersList">
             <constraints border-constraint="Center"/>
             <properties>
               <background color="-5784645"/>

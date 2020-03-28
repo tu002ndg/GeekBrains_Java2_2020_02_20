@@ -45,13 +45,17 @@ public class AuthDialog extends JFrame {
         try {
             controller.sendAuthMessage(login,password);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(
-                    this, "Ошибка при попытки аутентификации");
+           showError("Ошибка при попытки аутентификации");
         }
 
     }
 
     private void onCancel() {
         System.exit(0);
+    }
+
+    public void showError(String err_message) {
+        JOptionPane.showMessageDialog(this,
+                err_message);
     }
 }

@@ -5,6 +5,8 @@ import ru.geekbrains.java2.client.controller.ClientController;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientChat extends JFrame {
     private JPanel pnlMain;
@@ -42,7 +44,15 @@ public class ClientChat extends JFrame {
         if (message.isEmpty())
             return;
         appendOwnMessage(message);
-        controller.sendMessage(message);
+
+        if (usersList.getSelectedIndex() < 1) {
+            controller.sendMessageToAllUsers(message);
+        }
+        else {
+            String username = usersList.getSelectedValue();
+            controller.sendPrivateMessage(username, message);
+        }
+
         txtMessage.setText(null);
     }
 
@@ -57,4 +67,21 @@ public class ClientChat extends JFrame {
         appendMessage("Я: "+message);
     }
 
+    public void showError(String err_message) {
+        JOptionPane.showMessageDialog(this,
+                err_message);
+    }
+
+    public void updateUsers(List<String> users) {
+        SwingUtilities.invokeLater(() -> {
+            DefaultListModel<String> model =
+                    new DefaultListModel<>();
+//            model.addAll(users);
+            for(String elem:users) {
+                model.addElement(elem);
+            }
+            usersList.setModel(model);
+        });
+    }
 }
+
