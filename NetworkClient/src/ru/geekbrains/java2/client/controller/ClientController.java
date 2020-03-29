@@ -15,6 +15,10 @@ public class ClientController {
     private final ClientChat clientChat;
     private String nickname;
 
+    public ClientChat getClientChat() {
+        return clientChat;
+    }
+
     public ClientController(String serverHost, int serverPort) {
         this.networkService = new NetworkService(serverHost, serverPort);
         this.authDialog = new AuthDialog(this);

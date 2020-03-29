@@ -5,7 +5,6 @@ import ru.geekbrains.java2.client.controller.ClientController;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClientChat extends JFrame {
@@ -19,7 +18,6 @@ public class ClientChat extends JFrame {
 
     public ClientChat(ClientController controller) {
         this.controller = controller;
-        //setTitle(controller.getUsername());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(640, 480);
         setLocationRelativeTo(null);
