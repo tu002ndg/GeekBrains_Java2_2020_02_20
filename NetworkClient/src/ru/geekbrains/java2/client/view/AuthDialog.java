@@ -45,7 +45,7 @@ public class AuthDialog extends JFrame {
         try {
             controller.sendAuthMessage(login,password);
         } catch (IOException e) {
-           showError("Ошибка при попытки аутентификации");
+           showError("Ошибка при попытке аутентификации");
         }
 
     }

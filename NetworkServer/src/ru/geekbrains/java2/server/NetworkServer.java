@@ -25,6 +25,7 @@ public class NetworkServer {
         this.authService = new BaseAuthService();
     }
 
+
     public void start() {
 
         try (ServerSocket serverSocket = new ServerSocket(port)){

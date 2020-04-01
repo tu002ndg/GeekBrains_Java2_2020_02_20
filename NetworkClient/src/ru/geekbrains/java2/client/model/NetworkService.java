@@ -15,7 +15,7 @@ import java.util.List;
 
 
 public class NetworkService {
-    private static final long AUTH_TIME_DURATION = 120000;
+
     private final String host;
     private final int port;
     private Socket socket;
@@ -32,30 +32,12 @@ public class NetworkService {
     }
 
  public void connect(ClientController controller) throws IOException {
-        this.controller = controller;
-        socket = new Socket(host,port);
-        in = new ObjectInputStream(socket.getInputStream());
-        out = new ObjectOutputStream(socket.getOutputStream());
-        runReadThread();
-        authTimer();
+     this.controller = controller;
+     socket = new Socket(host, port);
+     in = new ObjectInputStream(socket.getInputStream());
+     out = new ObjectOutputStream(socket.getOutputStream());
+     runReadThread();
  }
-
-    private void authTimer() {
-        Thread th = new Thread(()->{
-            try {
-                Thread.sleep(AUTH_TIME_DURATION);
-                if (!controller.getClientChat().isVisible()) {
-                    controller.showErrorMessage(
-                            "Время ожидания аутентификации истекло");
-                    System.exit(-1);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        th.setDaemon(true);
-        th.start();
-    }
 
     private void runReadThread() {
         new Thread(() -> {
