@@ -2,9 +2,7 @@ package ru.geekbrains.java2.server.client;
 
 import ru.geekbrains.java2.client.Command;
 import ru.geekbrains.java2.client.CommandType;
-import ru.geekbrains.java2.client.command.AuthCommand;
-import ru.geekbrains.java2.client.command.BroadcastMessageCommand;
-import ru.geekbrains.java2.client.command.PrivateMessageCommand;
+import ru.geekbrains.java2.client.command.*;
 import ru.geekbrains.java2.server.NetworkServer;
 
 import java.io.*;
@@ -12,6 +10,7 @@ import java.net.Socket;
 
 public class ClientHandler {
 
+    private static final long AUTH_TIME_DURATION = 120000;
     private final NetworkServer networkServer;
     private final Socket clientSocket;
     private ObjectInputStream in;
@@ -41,6 +40,7 @@ public class ClientHandler {
             in = new ObjectInputStream(socket.getInputStream());
             new Thread(()->{
                 try {
+                    authTimer();
                     authentication();
                     readMessage();
                 } catch (IOException e) {
@@ -105,6 +105,27 @@ public class ClientHandler {
             sendMessage(Command.errorCommand(errorMessage));
             return null;
         }
+    }
+
+    private void authTimer()  {
+        Thread th = new Thread(()->{
+            try {
+                Thread.sleep(AUTH_TIME_DURATION);
+                if (nickname==null) {
+                    Command authErrorCommand =
+                            Command.authErrorCommand(
+                                    "Время аутентификации истекло...");
+                    sendMessage(authErrorCommand);
+                    closeConnection();
+                  }
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();}
+            catch (IOException e) {
+                e.printStackTrace();}
+            });
+        th.setDaemon(true);
+        th.start();
     }
 
     private void authentication() throws IOException {
